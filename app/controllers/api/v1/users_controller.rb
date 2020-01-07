@@ -1,20 +1,30 @@
 class Api::V1::UsersController < ApplicationController
     def index
-        @users = User.all
-        render json: @users
+        users = User.all
+        render json: users
     end
 
     def create
-        @user = User.create(user_params)
-        if @user.valid?
-          render json: { user: UserSerializer.new(@user) }, status: :created
+        user = User.find_by(username: params['username'])
+        if user && user.authenticate(params['password'])
+          token =  JWT.encode({user_id: user.id}, 'secretkey', 'HS256')
+    
+          render json: { id: user.id, username: user.username, token: token }
         else
-          render json: { error: 'failed to create user' }, status: :not_acceptable
+          render json: { error: 'invalid credentials' }, status: 401
         end
-      end
-     
-      private
-      def user_params
-        params.require(:user).permit(:username, :password, :email, :profile_pic_url)
-      end
+    end
+    
+    def show
+        token = request.headers['Authorization'].split(' ')[1]
+        decode = JWT.decode token, 'secretkey', true, { algorithm: 'HS256' }
+        user_id = decode[0]['user_id']
+        user = User.find(user_id)
+    
+        if(user)
+          render json: { id: user.id, username: user.username, token: token }
+        else
+          render json: { error: 'invalid token' }, status: 401
+        end
+    end
 end
