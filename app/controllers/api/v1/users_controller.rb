@@ -7,8 +7,7 @@ class Api::V1::UsersController < ApplicationController
     def create
         user = User.find_by(username: params['username'])
         if user && user.authenticate(params['password'])
-          token =  JWT.encode({user_id: user.id}, 'secretkey', 'HS256')
-    
+          token =  JWT.encode({id: user.id}, 'secretkey', 'HS256')
           render json: { id: user.id, username: user.username, token: token }
         else
           render json: { error: 'invalid credentials' }, status: 401
@@ -18,7 +17,7 @@ class Api::V1::UsersController < ApplicationController
     def show
         token = request.headers['Authorization'].split(' ')[1]
         decode = JWT.decode token, 'secretkey', true, { algorithm: 'HS256' }
-        user_id = decode[0]['user_id']
+        user_id = decode[0]['id']
         user = User.find(user_id)
     
         if(user)
