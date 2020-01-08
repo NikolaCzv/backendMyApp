@@ -4,14 +4,24 @@ class Api::V1::UsersController < ApplicationController
         render json: users
     end
 
-    def create
+    def login
         user = User.find_by(username: params['username'])
         if user && user.authenticate(params['password'])
           token =  JWT.encode({id: user.id}, 'secretkey', 'HS256')
-          render json: { id: user.id, username: user.username, token: token }
+          render json: { id: user.id, username: user.username, email: user.email, token: token }
         else
           render json: { error: 'invalid credentials' }, status: 401
         end
+    end
+
+    def create
+      user = User.create(username: params[:username], password: params[:password], email: params[:email])
+      if user.valid?
+        token =  JWT.encode({id: user.id}, 'secretkey', 'HS256')
+        render json: { id: user.id, username: user.username, email: user.email, token: token}, status: :created
+      else
+        render json: { error: 'Failed to create an account' }, status: 401
+      end
     end
     
     def show
