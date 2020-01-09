@@ -31,7 +31,7 @@ class Api::V1::UsersController < ApplicationController
         user = User.find(user_id)
     
         if(user)
-          render json: { id: user.id, username: user.username, email: user.email, profile_pic_url: user.profile_pic_url, token: token }
+          render json: { id: user.id, username: user.username, email: user.email, profile_pic_url: user.profile_pic_url, token: token, followers: user.followers, followees: user.followees }
         else
           render json: { error: 'invalid token' }, status: 401
         end
