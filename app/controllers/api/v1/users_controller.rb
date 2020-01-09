@@ -15,7 +15,7 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def create
-      user = User.create(username: params[:username], password: params[:password], email: params[:email])
+      user = User.create(username: params[:username], password: params[:password], password_confirmation: params[:password_confirmation],email: params[:email])
       if user.valid?
         token =  JWT.encode({id: user.id}, 'secretkey', 'HS256')
         render json: { id: user.id, username: user.username, email: user.email, token: token}, status: :created
@@ -31,7 +31,7 @@ class Api::V1::UsersController < ApplicationController
         user = User.find(user_id)
     
         if(user)
-          render json: { id: user.id, username: user.username, token: token }
+          render json: { id: user.id, username: user.username, email: user.email, profile_pic_url: user.profile_pic_url, token: token }
         else
           render json: { error: 'invalid token' }, status: 401
         end
