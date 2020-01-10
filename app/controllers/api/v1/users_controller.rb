@@ -1,6 +1,7 @@
 class Api::V1::UsersController < ApplicationController
     def index
         users = User.all
+        
         render json: users
     end
 
@@ -35,5 +36,11 @@ class Api::V1::UsersController < ApplicationController
         else
           render json: { error: 'invalid token' }, status: 401
         end
+    end
+
+    def show_user
+      user = User.find(params[:id])
+
+      render json: user
     end
 end
