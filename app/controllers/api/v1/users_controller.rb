@@ -43,4 +43,23 @@ class Api::V1::UsersController < ApplicationController
 
       render json: user
     end
+
+  def edit
+      user = User.find(params[:id])
+
+      render json: user
+  end
+
+  def update
+      user = User.find(params[:id])
+      user.update(params.require(:user).permit(:username, :email, :password, :password_confirmation))
+
+      render json: user
+  end
+
+  def destroy
+    user = User.find(params[:id]).destroy
+
+    render json: user
+ end
 end
