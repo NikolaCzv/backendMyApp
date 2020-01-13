@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       patch '/show_user/:id', to: 'users#update'
       put '/show_user/:id', to: 'users#update'
       delete '/show_user/:id', to: 'users#destroy'
+      delete '/follows/:followee_id/:follower_id', to: 'follows#destroy_follow'
     end
   end
 end
