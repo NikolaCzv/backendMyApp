@@ -25,3 +25,5 @@ Post.create(pic_url: 'https://i.ytimg.com/vi/3hRGPLFwS3c/maxresdefault.jpg', use
 Post.create(pic_url: 'https://ak8.picdn.net/shutterstock/videos/15260668/thumb/1.jpg', user_id: 3, text: 'Work Work Work Love')
 
 Post.create(pic_url: 'https://static.toiimg.com/thumb/msid-44945488,width-748,height-499,resizemode=4,imgsize-291921/Nice-in-pictures.jpg', user_id: 4, text: 'France')
+
+
