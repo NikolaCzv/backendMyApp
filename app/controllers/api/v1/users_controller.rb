@@ -32,7 +32,7 @@ class Api::V1::UsersController < ApplicationController
         user = User.find(user_id)
     
         if(user)
-          render json: { id: user.id, username: user.username, email: user.email, profile_pic_url: user.profile_pic_url, token: token, followers: user.followers, followees: user.followees, posts: user.posts}
+          render json: { id: user.id, username: user.username, email: user.email, profile_pic_url: user.profile_pic_url, token: token, followers: user.followers, posts: user.posts}
         else
           render json: { error: 'invalid token' }, status: 401
         end
@@ -61,5 +61,12 @@ class Api::V1::UsersController < ApplicationController
     user = User.find(params[:id]).destroy
 
     render json: user
+ end
+
+ def user_followees
+  user = User.find(params[:id])
+  followees = user.followees
+
+  render json: followees, include: :posts
  end
 end
