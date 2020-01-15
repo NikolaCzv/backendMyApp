@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       delete '/show_user/:id', to: 'users#destroy'
       delete '/follows/:followee_id/:follower_id', to: 'follows#destroy_follow'
       get 'users/:id/user_followees', to: 'users#user_followees'
+      delete '/likes/:user_id/:post_id', to: 'likes#destroy_like'
     end
   end
 end

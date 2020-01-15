@@ -28,6 +28,6 @@ class Api::V1::FollowsController < ApplicationController
         follow = Follow.find_by(followee_id: params[:followee_id], follower_id: params[:follower_id]).destroy
     
         render json: follow
-     end
+    end
 
 end

@@ -17,4 +17,10 @@ class Api::V1::LikesController < ApplicationController
         render json: like
     end
 
+    def destroy_like
+        like = Like.find_by(user_id: params[:user_id], post_id: params[:post_id]).destroy
+    
+        render json: like
+    end
+
 end
