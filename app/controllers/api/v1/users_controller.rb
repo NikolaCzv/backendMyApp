@@ -52,7 +52,7 @@ class Api::V1::UsersController < ApplicationController
 
   def update
       user = User.find(params[:id])
-      user.update(params.require(:user).permit(:username, :email))
+      user.update(username: params[:username], email: params[:email], photo: params[:photo])
 
       render json: user
   end

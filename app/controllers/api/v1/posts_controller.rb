@@ -18,7 +18,6 @@ class Api::V1::PostsController < ApplicationController
     end
 
     def create
-        # byebug
         post = Post.create(user_id: params[:user_id], text: params[:text], photo: params[:photo])
         render json: post
     end

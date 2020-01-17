@@ -7,6 +7,7 @@ class UserSerializer < ActiveModel::Serializer
             object.photo.service_url
         else
          object.profile_pic_url
+        end
      end
 
 end
