@@ -38,11 +38,11 @@ class Api::V1::UsersController < ApplicationController
         end
     end
 
-    def show_user
+  def show_user
       user = User.find(params[:id])
 
       render json: user, include: :posts
-    end
+  end
 
   def edit
       user = User.find(params[:id])
@@ -69,4 +69,5 @@ class Api::V1::UsersController < ApplicationController
 
   render json: followees
  end
+
 end

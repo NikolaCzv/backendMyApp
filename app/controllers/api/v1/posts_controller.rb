@@ -21,4 +21,10 @@ class Api::V1::PostsController < ApplicationController
         post = Post.create(user_id: params[:user_id], text: params[:text], photo: params[:photo])
         render json: post
     end
+
+    def destroy
+        post = Post.find(params[:id]).destroy
+
+        render json: post
+    end
 end
