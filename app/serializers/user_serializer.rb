@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-    attributes :username, :email, :profile_photo, :id, :posts, :profile_pic_url, :followers
+    attributes :username, :email, :profile_photo, :id, :posts, :profile_pic_url, :followers, :trips
     has_many :posts, include_nested_associations: true
 
     def profile_photo
@@ -9,7 +9,6 @@ class UserSerializer < ActiveModel::Serializer
          object.profile_pic_url
         end
     end
-
 
     def followers
         object.followers.each do |user|
