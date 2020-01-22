@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
-      resources :trips
-      resources :follows
-      resources :posts
-      resources :likes
-      resources :comments
+      resources :trips, only: [:create, :index, :show, :update, :destroy]
+      resources :follows, only: [:create, :index, :show, :update]
+      resources :posts, only: [:create, :index, :show, :destroy]
+      resources :likes, only: [:create, :index, :show]
+      resources :comments, only: [:create, :index, :show, :destroy]
       resources :users, only: [:create, :index, :show, :edit, :update, :destroy]
       post '/login', to: 'users#login'
       get '/current_user', to: 'users#show'

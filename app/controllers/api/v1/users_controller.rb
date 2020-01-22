@@ -9,17 +9,17 @@ class Api::V1::UsersController < ApplicationController
         user = User.find_by(username: params['username'])
         if user && user.authenticate(params['password'])
           token =  JWT.encode({id: user.id}, 'secretkey', 'HS256')
-          render json: { id: user.id, username: user.username, email: user.email, token: token }
+          render json: { id: user.id, username: user.username, email: user.email, hometown: user.hometown, token: token }
         else
           render json: { error: 'invalid credentials' }, status: 401
         end
     end
 
     def create
-      user = User.create(username: params[:username], password: params[:password], password_confirmation: params[:password_confirmation], email: params[:email])
+      user = User.create(username: params[:username], password: params[:password], password_confirmation: params[:password_confirmation], email: params[:email], hometown: params[:hometown])
       if user.valid?
         token =  JWT.encode({id: user.id}, 'secretkey', 'HS256')
-        render json: { id: user.id, username: user.username, email: user.email, token: token}, status: :created
+        render json: { id: user.id, username: user.username, email: user.email, hometown: user.hometown, token: token}, status: :created
       else
         render json: { error: 'Failed to create an account' }, status: 401
       end
@@ -52,7 +52,7 @@ class Api::V1::UsersController < ApplicationController
 
   def update
       user = User.find(params[:id])
-      user.update(username: params[:username], email: params[:email], photo: params[:photo])
+      user.update(username: params[:username], email: params[:email], hometown: params[:hometown], photo: params[:photo])
 
       render json: user
   end
