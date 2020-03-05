@@ -9,10 +9,4 @@ class UserSerializer < ActiveModel::Serializer
          object.profile_pic_url
         end
     end
-
-    # def followers
-    #     object.followers.each do |user|
-    #         user.profile_pic_url = user.photo.service_url
-    #     end
-    # end
 end

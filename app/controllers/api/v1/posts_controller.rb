@@ -2,8 +2,6 @@ class Api::V1::PostsController < ApplicationController
 
     def index
         posts = Post.all
-        # allPosts = posts.map{ |post| {text: post.text, id:post.id, user_id: post.id, likes: post.likes.count, comments: post.comments, post_photo: post.photo.service_url}}
-
         render json: posts
     end
 
